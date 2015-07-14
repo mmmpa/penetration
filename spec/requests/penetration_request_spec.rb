@@ -16,6 +16,12 @@ describe 'Penetrations', type: :request do
   end
 
   it do
+    expect{
+      get '/penetrations/dynamic_too_long'
+    }.to raise_exception(ActionDispatch::Cookies::CookieOverflow)
+  end
+
+  it do
     get '/penetrations/tag'
     expect(response.body).to include('<strong>peenetrated penetration!</strong>')
   end
@@ -23,6 +29,17 @@ describe 'Penetrations', type: :request do
   it do
     get '/penetrations/preset'
     expect(response.body).to include('peenetrated notification!')
+  end
+
+  it do
+    get '/penetrations/preset_too_long'
+    get '/penetrations/index'
+    expect(response.body).to include('peenetrated notification!' * 10)
+  end
+
+  it do
+    get '/penetrations/with_no_param'
+    expect(response.body).to include('peenetrated noparam!')
   end
 
   it do

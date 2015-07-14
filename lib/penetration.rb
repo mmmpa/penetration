@@ -4,12 +4,26 @@ module Penetration
   end
 
   class Caller
-    class << self
-      def penetrate(session, session_name, element)
-        session[session_name] ||= []
-        session[session_name] << element
-        session[session_name].compact
-      end
+    def initialize(session, session_name)
+      @session = session
+      @session_name = session_name
+      @session[@session_name] ||= []
+    end
+
+    def current_session
+      @session[@session_name]
+    end
+
+    def add_raw(raw)
+      add(:raw, raw)
+    end
+
+    def add_preset(preset)
+      add(:preset, preset)
+    end
+
+    def add(mode, element)
+      current_session << [mode, element]
     end
   end
 
@@ -26,13 +40,15 @@ module Penetration
   class Core
     def initialize(session, text = nil, &block)
       @session = session
-      Caller.penetrate(@session, :rough_penetration, text) if text
+      @caller = Caller.new(@session, :rough_penetration)
+      @caller.add_raw(text) if text
       instance_eval(&block) if block_given?
     end
 
     def method_missing(name, *rest)
-      preset = Preset.find(name)
-      Caller.penetrate(@session, :rough_penetration, preset.is_a?(Proc) ? preset.(*rest) : preset)
+      if Preset.find(name)
+        @caller.add_preset([name, *rest].flatten)
+      end
     end
   end
 
@@ -49,8 +65,21 @@ module Penetration
 
     def render
       return '' if (elements = @session.delete(:rough_penetration)).nil?
-
-      elements.flatten.join.html_safe
+      elements.map do |element|
+        case element.first.to_sym
+          when :raw
+            element.last
+          when :preset
+            preset = Preset.find(element.last.first)
+            if preset.is_a?(Proc)
+              element.last[1] ? preset.(element.last[1]) : preset.()
+            else
+              preset
+            end
+          else
+            nil
+        end
+      end.compact.join.html_safe
     end
   end
 
