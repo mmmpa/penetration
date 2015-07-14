@@ -13,6 +13,11 @@ class PenetrationsController < ApplicationController
     penetrate 'peenetrated penetration!'
   end
 
+  def tag
+    penetrate '<strong>peenetrated penetration!</strong>'
+    render :dynamic
+  end
+
   def preset
     penetrate {
       notify

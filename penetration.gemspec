@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ["mmmpa"]
   spec.email       = ["mmmpa.mmmpa@gmail.com"]
   spec.homepage    = "http://mmmpa.net"
-  spec.summary     = "TODO: Summary of Penetration."
-  spec.description = "TODO: Description of Penetration."
+  spec.summary     = "Insert text tail of view."
+  spec.description = "Insert text tail of view."
 
   spec.files         = `git ls-files`.split("\n")
   spec.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

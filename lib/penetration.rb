@@ -50,7 +50,7 @@ module Penetration
     def render
       return '' if (elements = @session.delete(:rough_penetration)).nil?
 
-      elements.flatten.map(&:html_safe).join
+      elements.flatten.join.html_safe
     end
   end
 

@@ -16,6 +16,11 @@ describe 'Penetrations', type: :request do
   end
 
   it do
+    get '/penetrations/tag'
+    expect(response.body).to include('<strong>peenetrated penetration!</strong>')
+  end
+
+  it do
     get '/penetrations/preset'
     expect(response.body).to include('peenetrated notification!')
   end
