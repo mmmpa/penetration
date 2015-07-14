@@ -70,14 +70,14 @@ module Penetration
           when :raw
             element.last
           when :preset
-            preset = Preset.find(element.last.first)
+            preset = Preset.find(element.last.first) rescue next
             if preset.is_a?(Proc)
               element.last[1] ? preset.(element.last[1]) : preset.()
             else
               preset
             end
           else
-            nil
+            # do nothing
         end
       end.compact.join.html_safe
     end
@@ -87,11 +87,11 @@ module Penetration
     class << self
       def call(name, &block)
         @preset ||= {}
-        @preset[name] = yield
+        @preset[name.to_sym] = yield
       end
 
       def find(name)
-        @preset[name] || (raise NotFound)
+        @preset[name.to_sym] || (raise NotFound)
       end
     end
 
