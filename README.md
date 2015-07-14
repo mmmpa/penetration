@@ -3,3 +3,5 @@
 [![Code Climate](https://codeclimate.com/github/mmmpa/penetration/badges/gpa.svg)](https://codeclimate.com/github/mmmpa/penetration)
 
 # Penetration
+
+Viewの末尾にテキストを挿入する。
