@@ -39,6 +39,17 @@ class PenetrationsController < ApplicationController
     render json: {}
   end
 
+  def with_scope
+    penetrate {
+      alert my { do_mine }
+    }
+    render :index
+  end
+
+  def do_mine
+    'doing!'
+  end
+
   def with_no_param
     penetrate {
       no_param

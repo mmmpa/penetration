@@ -16,7 +16,7 @@ describe 'Penetrations', type: :request do
   end
 
   it do
-    expect{
+    expect {
       get '/penetrations/dynamic_too_long'
     }.to raise_exception(ActionDispatch::Cookies::CookieOverflow)
   end
@@ -61,4 +61,10 @@ describe 'Penetrations', type: :request do
     get '/penetrations/double'
     expect(response.body).to include('penetrated alert2!')
   end
+
+  it do
+    get '/penetrations/with_scope'
+    expect(response.body).to include('penetrated doing')
+  end
+
 end

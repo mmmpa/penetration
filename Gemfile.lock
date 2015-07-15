@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    penetration (0.0.5)
+    penetration (0.0.6)
       rails (~> 4.0)
 
 GEM

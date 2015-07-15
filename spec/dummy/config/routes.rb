@@ -9,4 +9,5 @@ Dummy::Application.routes.draw do
   get 'penetrations/with_param'
   get 'penetrations/with_multiple_params'
   get 'penetrations/double'
+  get 'penetrations/with_scope'
 end

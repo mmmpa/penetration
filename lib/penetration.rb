@@ -38,8 +38,9 @@ module Penetration
   end
 
   class Core
-    def initialize(session, text = nil, &block)
+    def initialize(controller, session, text = nil, &block)
       @session = session
+      @controller = controller
       @caller = Caller.new(@session, :rough_penetration)
       @caller.add_raw(text) if text
       instance_eval(&block) if block_given?
@@ -49,6 +50,10 @@ module Penetration
       if Preset.find(name)
         @caller.add_preset([name, *rest].flatten)
       end
+    end
+
+    def my(&block)
+      @controller.instance_eval(&block)
     end
   end
 
@@ -112,7 +117,7 @@ module Penetration
 
     class Base
       def penetrate(text = nil, &block)
-        Penetration::Core.new(session, text, &block)
+        Penetration::Core.new(self, session, text, &block)
       end
     end
   end
