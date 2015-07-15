@@ -1,26 +1,27 @@
 class PenetrationsController < ApplicationController
   Penetration.configure do
-    preset(:notify) { 'peenetrated notification!' }
-    preset(:too_long) { 'peenetrated notification!' * 500 }
-    preset(:alert) { ->(message) { "peenetrated #{message}" } }
-    preset(:no_param) { -> { "peenetrated noparam!" } }
+    preset(:notify) { 'penetrated notification!' }
+    preset(:too_long) { 'penetrated notification!' * 500 }
+    preset(:alert) { ->(message) { "penetrated #{message}" } }
+    preset(:no_param) { -> { "penetrated noparam!" } }
+    preset(:multiple) { ->(a, b) { "penetrated #{a} #{b}" } }
   end
 
   def index
   end
 
   def dynamic
-    penetrate 'peenetrated penetration!'
+    penetrate 'penetrated penetration!'
     render :index
   end
 
   def dynamic_too_long
-    penetrate 'peenetrated penetration!' * 500
+    penetrate 'penetrated penetration!' * 500
     render json: {}
   end
 
   def tag
-    penetrate '<strong>peenetrated penetration!</strong>'
+    penetrate '<strong>penetrated penetration!</strong>'
     render :index
   end
 
@@ -30,7 +31,6 @@ class PenetrationsController < ApplicationController
     }
     render :index
   end
-
 
   def preset_too_long
     penetrate {
@@ -49,6 +49,13 @@ class PenetrationsController < ApplicationController
   def with_param
     penetrate {
       alert 'alert!'
+    }
+    render :index
+  end
+
+  def with_multiple_params
+    penetrate {
+      multiple 'alert!', 'alert!!'
     }
     render :index
   end

@@ -7,5 +7,6 @@ Dummy::Application.routes.draw do
   get 'penetrations/preset_too_long'
   get 'penetrations/with_no_param'
   get 'penetrations/with_param'
+  get 'penetrations/with_multiple_params'
   get 'penetrations/double'
 end

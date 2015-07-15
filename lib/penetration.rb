@@ -70,9 +70,9 @@ module Penetration
           when :raw
             element.last
           when :preset
-            preset = Preset.find(element.last.first) rescue next
+            preset = Preset.find(element.last.shift) rescue next
             if preset.is_a?(Proc)
-              element.last[1] ? preset.(element.last[1]) : preset.()
+              element.last.present? ? preset.(*element.last) : preset.()
             else
               preset
             end

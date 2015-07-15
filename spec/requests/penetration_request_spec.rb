@@ -7,12 +7,12 @@ describe 'Penetrations', type: :request do
 
   it do
     get '/penetrations/index'
-    expect(response.body).not_to include('peenetrated penetration!')
+    expect(response.body).not_to include('penetrated penetration!')
   end
 
   it do
     get '/penetrations/dynamic'
-    expect(response.body).to include('peenetrated penetration!')
+    expect(response.body).to include('penetrated penetration!')
   end
 
   it do
@@ -23,37 +23,42 @@ describe 'Penetrations', type: :request do
 
   it do
     get '/penetrations/tag'
-    expect(response.body).to include('<strong>peenetrated penetration!</strong>')
+    expect(response.body).to include('<strong>penetrated penetration!</strong>')
   end
 
   it do
     get '/penetrations/preset'
-    expect(response.body).to include('peenetrated notification!')
+    expect(response.body).to include('penetrated notification!')
   end
 
   it do
     get '/penetrations/preset_too_long'
     get '/penetrations/index'
-    expect(response.body).to include('peenetrated notification!' * 10)
+    expect(response.body).to include('penetrated notification!' * 10)
   end
 
   it do
     get '/penetrations/with_no_param'
-    expect(response.body).to include('peenetrated noparam!')
+    expect(response.body).to include('penetrated noparam!')
   end
 
   it do
     get '/penetrations/with_param'
-    expect(response.body).to include('peenetrated alert!')
+    expect(response.body).to include('penetrated alert!')
+  end
+
+  it do
+    get '/penetrations/with_multiple_params'
+    expect(response.body).to include('penetrated alert! alert!!')
   end
 
   it do
     get '/penetrations/double'
-    expect(response.body).to include('peenetrated alert1!')
+    expect(response.body).to include('penetrated alert1!')
   end
 
   it do
     get '/penetrations/double'
-    expect(response.body).to include('peenetrated alert2!')
+    expect(response.body).to include('penetrated alert2!')
   end
 end
